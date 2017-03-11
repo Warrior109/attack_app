@@ -1,0 +1,38 @@
+<%- model_class = User -%>
+<div class="page-header">
+  <h1><%=t '.title', :default => model_class.model_name.human.pluralize.titleize %></h1>
+</div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th><%= model_class.human_attribute_name(:nickname) %></th>
+      <th><%= model_class.human_attribute_name(:hp) %></th>
+      <th><%= model_class.human_attribute_name(:attack) %></th>
+      <th><%= model_class.human_attribute_name(:defence) %></th>
+      <th><%=t '.actions', :default => t("helpers.actions") %></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @users.each do |user| %>
+      <tr>
+        <td><%= link_to user.nickname, user_path(user) %></td>
+        <td><%= user.hp %></td>
+        <td><%= user.attack %></td>
+        <td><%= user.defence %></td>
+        <td>
+          <%= link_to t('.show', :default => t("helpers.links.show")),
+                      user_path(user), :class => 'btn btn-default btn-xs' %>
+          <%= link_to 'Attack',
+                      attack_path(user),
+                      method: :put,
+                      data: { confirm: 'Attack?' },
+                      class: 'btn btn-xs btn-danger' %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to t('.new', :default => t("helpers.links.new")),
+            new_user_path,
+            :class => 'btn btn-primary' %>

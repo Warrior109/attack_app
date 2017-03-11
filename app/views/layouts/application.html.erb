@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>TestApp</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <%= nav_bar do %>
+      <%= menu_group do %>
+        <%= menu_item "Users", root_path %>
+        <% if @current_user %>
+          <%= menu_item "You are #{@current_user.nickname}", user_path(@current_user.id) %>
+          <%= menu_text "Your attack: #{@current_user.attack}" %>
+          <%= menu_text "Your defence: #{@current_user.defence}" %>
+          <%= menu_text "Your hp: #{@current_user.hp}" %>
+        <% end %>
+      <% end %>
+    <% end %>
+
+    <%= yield %>
+  </body>
+</html>
